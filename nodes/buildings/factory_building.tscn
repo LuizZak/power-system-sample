@@ -52,6 +52,22 @@ value = 50.0
 fill_mode = 3
 show_percentage = false
 
+[node name="OutOfPower" type="Node2D" parent="." unique_id=137934895]
+unique_name_in_owner = true
+
+[node name="Line2D" type="Line2D" parent="OutOfPower" unique_id=274038397]
+points = PackedVector2Array(4, -12, -6, 1, 5, -1, -4, 13)
+width = 8.0
+begin_cap_mode = 1
+end_cap_mode = 1
+sharp_limit = 8.0
+
+[node name="Line2D2" type="Line2D" parent="OutOfPower" unique_id=16280550]
+points = PackedVector2Array(4, -12, -6, 1, 5, -1, -4, 13)
+width = 4.0
+default_color = Color(1, 1, 0, 1)
+sharp_limit = 8.0
+
 [node name="Components" type="Node" parent="." unique_id=308067743]
 unique_name_in_owner = true
 
