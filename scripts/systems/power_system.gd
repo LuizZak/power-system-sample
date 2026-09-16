@@ -40,10 +40,6 @@ class Network:
     var consumers: Array[BuildingBase]
     var storages: Array[BuildingBase]
 
-    var total_generation: float = 0.0
-    var total_storage: float = 0.0
-    var total_potential_power_draw: float = 0.0
-
     @warning_ignore("shadowed_variable")
     func _init(
         buildings: Array[BuildingBase],
@@ -56,35 +52,22 @@ class Network:
         self.consumers = consumers
         self.storages = storages
 
-        _recompute_draw_and_generation()
-
+    ## Processes power transfer across this network by the given delta time.
     func process(delta: float) -> void:
+        # Generate all power across all generators
         var available := _generate_power(delta)
+
+        # Fetch stored power from all power storages; this step exhausts power storages
         available += _consume_stored_power()
+
+        # Equally distribute power across all consumers that are available in a network
         var remaining := _distribute_power_to_consumers(available)
+
+        # Re-store any remaining power to power storages; this step re-fills power storages
         _store_power(remaining)
 
-    func _recompute_draw_and_generation() -> void:
-        total_generation = 0.0
-        total_storage = 0.0
-        total_potential_power_draw = 0.0
-
-        for generator in generators:
-            var component := generator.find_component(BuildingComponent.Kind.POWER_GENERATOR) as PowerGeneratorComponent
-            if component != null:
-                total_generation += component.power_generation
-
-        for consumer in consumers:
-            var component := consumer.find_component(BuildingComponent.Kind.POWER_CONSUMER) as PowerConsumerComponent
-            if component != null:
-                total_storage += component.power_capacity
-                total_potential_power_draw += component.max_power_consumed
-
-        for storage in storages:
-            var component := storage.find_component(BuildingComponent.Kind.POWER_STORAGE) as PowerStorageComponent
-            if component != null:
-                total_storage += component.power_capacity
-
+    ## Generates power from all power generators, returning the amount of power
+    ## that was generated in the process.
     func _generate_power(delta: float) -> float:
         var total := 0.0
 
@@ -98,6 +81,8 @@ class Network:
 
         return total
 
+    ## Exhausts all power storages empty, returning the total power collected
+    ## in the process.
     func _consume_stored_power() -> float:
         var total := 0.0
 
@@ -108,6 +93,8 @@ class Network:
 
         return total
 
+    ## Attempts to equally distribute the given amount of power to all connected
+    ## power consumers.
     func _distribute_power_to_consumers(power: float) -> float:
         # Make passes, attempting to distribute power until we either run out of
         # power to distribute, or available distributable sources.
@@ -133,6 +120,7 @@ class Network:
 
         return power
 
+    ## Re-stores powers back into power storages.
     func _store_power(power: float) -> float:
         # Make passes, attempting to store power until we either run out of power
         # to store, or storage sources.
@@ -169,18 +157,6 @@ class Network:
             func (b: BuildingBase):
                 return b.is_enabled and not b.find_component(BuildingComponent.Kind.POWER_STORAGE).is_full()
         )
-
-    func get_total_available_power() -> float:
-        var total := 0.0
-
-        for consumer in consumers:
-            var component := consumer.find_component(BuildingComponent.Kind.POWER_CONSUMER) as PowerConsumerComponent
-            total += component.power_available
-        for storage in storages:
-            var component := storage.find_component(BuildingComponent.Kind.POWER_STORAGE) as PowerStorageComponent
-            total += component.power_available
-
-        return total
 
     static func networks_from_graph(building_graph: BuildingGraph) -> Array[Network]:
         var result: Array[Network] = []
