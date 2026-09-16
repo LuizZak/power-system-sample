@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b4ln027cceouy"]
+
+[ext_resource type="Script" uid="uid://cqxxh2o5nkbpl" path="res://scripts/main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://cdvhy3wgqu1yi" path="res://scripts/systems/power_system.gd" id="3_h2yge"]
+
+[node name="Main" type="Node2D" unique_id=1803756361]
+script = ExtResource("1_0xm2m")
+
+[node name="BuildingsContainer" type="Node2D" parent="." unique_id=1162198925]
+
+[node name="PowerSystem" type="Node" parent="." unique_id=1355928912]
+script = ExtResource("3_h2yge")
+metadata/_custom_type_script = "uid://cdvhy3wgqu1yi"
+
+[node name="Label" type="Label" parent="." unique_id=1116925256]
+offset_left = 6.0
+offset_top = 488.0
+offset_right = 164.0
+offset_bottom = 641.0
+text = "Controls:
+G: Build Generator
+B: Build Battery
+F: Build Factory
+C: Connect Buildings
+X: Destroy Buildings"

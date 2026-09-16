@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bukjcw14peov7"]
+
+[ext_resource type="Script" uid="uid://bsatfu5l0ia8o" path="res://scripts/buildings/factory_building.gd" id="1_6ytge"]
+[ext_resource type="PackedScene" uid="uid://bcll11sxswies" path="res://nodes/geometry/shape_node.tscn" id="1_vl26t"]
+[ext_resource type="Script" uid="uid://ccqdicssjfswo" path="res://scripts/buildings/components/power_consumer_component.gd" id="3_8nfta"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8nfta"]
+size = Vector2(60, 40)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ytge"]
+bg_color = Color(0.6, 0.192, 0.192, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="FactoryBuilding" type="Node2D" unique_id=839965861]
+script = ExtResource("1_6ytge")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=1731964658]
+
+[node name="ShapeNode2" parent="Visuals" unique_id=1412418510 instance=ExtResource("1_vl26t")]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_8nfta")
+color = Color(0.627451, 0.627451, 1, 1)
+
+[node name="Line2D2" type="Line2D" parent="Visuals" unique_id=54005419]
+position = Vector2(1, 1)
+points = PackedVector2Array(-29, -6, -29, -19, -18, -9, -18, -21, -10, -9, -7, -10, -6, -20, 2, -10, 6, -11, 7, -20, 15, -10, 18, -10, 18, -20, 25, -12)
+width = 4.0
+default_color = Color(0.627451, 0.627451, 1, 1)
+
+[node name="Line2D" type="Line2D" parent="Visuals" unique_id=1612379291]
+position = Vector2(3, 8)
+points = PackedVector2Array(-33, -32, -22, -21, -22, -33, -10, -21, -10, -33, 2, -21, 2, -33, 14, -21, 14, -33, 26, -21, 26, 17, -33, 17)
+closed = true
+width = 4.0
+default_color = Color(0.29925004, 0.1425, 0.57, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="PowerProgressBar" type="ProgressBar" parent="." unique_id=135113877]
+unique_name_in_owner = true
+offset_left = -25.0
+offset_top = -8.0
+offset_right = 25.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_6ytge")
+value = 50.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Components" type="Node" parent="." unique_id=308067743]
+unique_name_in_owner = true
+
+[node name="PowerConsumerComponent" type="Node" parent="Components" unique_id=884840815]
+script = ExtResource("3_8nfta")
+max_power_consumed = 1.0
+power_capacity = 5.0
+metadata/_custom_type_script = "uid://ccqdicssjfswo"

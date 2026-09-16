@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://b4nh017m0kbyu"]
+
+[ext_resource type="PackedScene" uid="uid://bcll11sxswies" path="res://nodes/geometry/shape_node.tscn" id="1_4hp3p"]
+[ext_resource type="Script" uid="uid://qqv0xr6jjwre" path="res://scripts/buildings/generator_building.gd" id="1_i2ppn"]
+[ext_resource type="Script" uid="uid://debn4s3rde2rd" path="res://scripts/buildings/components/power_generator_component.gd" id="3_wow7f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3a121"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4hp3p"]
+radius = 28.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wow7f"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i2ppn"]
+radius = 16.0
+
+[node name="GeneratorBuilding" type="Node2D" unique_id=363762709]
+script = ExtResource("1_i2ppn")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=1553680231]
+
+[node name="ShapeNode" parent="Visuals" unique_id=1002218713 instance=ExtResource("1_4hp3p")]
+shape = SubResource("CircleShape2D_3a121")
+color = Color(0.29925004, 0.1425, 0.57, 1)
+
+[node name="ShapeNode2" parent="Visuals" unique_id=2100552640 instance=ExtResource("1_4hp3p")]
+shape = SubResource("CircleShape2D_4hp3p")
+color = Color(0.627451, 0.627451, 1, 1)
+
+[node name="Fan" type="Node2D" parent="Visuals" unique_id=1927006603]
+unique_name_in_owner = true
+
+[node name="ShapeNode4" parent="Visuals/Fan" unique_id=1765372416 instance=ExtResource("1_4hp3p")]
+shape = SubResource("CircleShape2D_wow7f")
+color = Color(0.29803923, 0.14117648, 0.5686275, 1)
+
+[node name="ShapeNode3" parent="Visuals/Fan" unique_id=534872292 instance=ExtResource("1_4hp3p")]
+shape = SubResource("CircleShape2D_i2ppn")
+color = Color(1, 1, 1, 1)
+
+[node name="Line2D" type="Line2D" parent="Visuals/Fan" unique_id=2039312039]
+points = PackedVector2Array(-18, 0, 18, 0)
+width = 4.0
+default_color = Color(0.29925004, 0.1425, 0.57, 1)
+
+[node name="Line2D2" type="Line2D" parent="Visuals/Fan" unique_id=1298849702]
+points = PackedVector2Array(0, -18, 0, 18)
+width = 4.0
+default_color = Color(0.29925004, 0.1425, 0.57, 1)
+
+[node name="Line2D3" type="Line2D" parent="Visuals/Fan" unique_id=1908860054]
+rotation = -0.7853982
+points = PackedVector2Array(0, -18, 0, 18)
+width = 4.0
+default_color = Color(0.29925004, 0.1425, 0.57, 1)
+
+[node name="Line2D4" type="Line2D" parent="Visuals/Fan" unique_id=1409916502]
+rotation = -2.3561945
+points = PackedVector2Array(0, -18, 0, 18)
+width = 4.0
+default_color = Color(0.29925004, 0.1425, 0.57, 1)
+
+[node name="Components" type="Node" parent="." unique_id=1140223756]
+unique_name_in_owner = true
+
+[node name="PowerGeneratorComponent" type="Node" parent="Components" unique_id=1432202087]
+script = ExtResource("3_wow7f")
+power_generation = 3.0
+metadata/_custom_type_script = "uid://debn4s3rde2rd"

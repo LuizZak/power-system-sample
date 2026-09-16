@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://ctsw1bbolvfs4"]
+
+[ext_resource type="PackedScene" uid="uid://bcll11sxswies" path="res://nodes/geometry/shape_node.tscn" id="1_5i350"]
+[ext_resource type="Script" uid="uid://co657m6xsy3ye" path="res://scripts/buildings/battery_building.gd" id="1_kh7t4"]
+[ext_resource type="Script" uid="uid://bo1f7bhwn50cy" path="res://scripts/buildings/components/power_storage_component.gd" id="3_u688h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6uv2t"]
+size = Vector2(40, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5i350"]
+size = Vector2(32, 62)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i350"]
+bg_color = Color(0.6, 0.192, 0.192, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="BatteryBuilding" type="Node2D" unique_id=208155791]
+script = ExtResource("1_kh7t4")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=84393890]
+
+[node name="ShapeNode" parent="Visuals" unique_id=1002218713 instance=ExtResource("1_5i350")]
+shape = SubResource("RectangleShape2D_6uv2t")
+color = Color(0.29925004, 0.1425, 0.57, 1)
+
+[node name="ShapeNode2" parent="Visuals" unique_id=2054003706 instance=ExtResource("1_5i350")]
+shape = SubResource("RectangleShape2D_5i350")
+color = Color(0.627451, 0.627451, 1, 1)
+
+[node name="PowerProgressBar" type="ProgressBar" parent="." unique_id=500262739]
+unique_name_in_owner = true
+offset_left = -14.0
+offset_top = -29.0
+offset_right = 14.0
+offset_bottom = 29.0
+mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_5i350")
+value = 24.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Components" type="Node" parent="." unique_id=1010684710]
+unique_name_in_owner = true
+
+[node name="PowerStorageComponent" type="Node" parent="Components" unique_id=1723772644]
+script = ExtResource("3_u688h")
+power_capacity = 50.0
+metadata/_custom_type_script = "uid://bo1f7bhwn50cy"
