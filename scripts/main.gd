@@ -160,7 +160,7 @@ class BuildMouseTool extends MouseToolBase:
                 node.draw_rect(rect, color, true, -1, true)
 
     func mouse_move(event) -> void:
-        _last_point = event.position
+        _last_point = event.position.snappedf(20.0)
 
         queue_redraw()
 
@@ -168,7 +168,7 @@ class BuildMouseTool extends MouseToolBase:
         if event.button_index != MOUSE_BUTTON_LEFT:
             return
 
-        _last_point = event.position
+        _last_point = event.position.snappedf(20.0)
 
         var can_build := building_under(_last_point) == null
 

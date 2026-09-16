@@ -23,6 +23,7 @@ func regenerate_networks() -> void:
         _networks = Network.networks_from_graph(_building_graph)
 
 func _process(delta: float) -> void:
+    # Update power in all networks
     for network in _networks:
         network.process(delta)
 
