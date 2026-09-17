@@ -11,9 +11,13 @@ func has_component(kind: BuildingComponent.Kind) -> bool:
     return find_component(kind) != null
 
 func find_component(kind: BuildingComponent.Kind) -> BuildingComponent:
-    for component in components.get_children():
-        if component is BuildingComponent and component.get_kind() == kind:
-            return component
+    match kind:
+        BuildingComponent.Kind.POWER_GENERATOR:
+            return get_node_or_null(^"%Components/PowerGeneratorComponent")
+        BuildingComponent.Kind.POWER_CONSUMER:
+            return get_node_or_null(^"%Components/PowerConsumerComponent")
+        BuildingComponent.Kind.POWER_STORAGE:
+            return get_node_or_null(^"%Components/PowerStorageComponent")
 
     return null
 
